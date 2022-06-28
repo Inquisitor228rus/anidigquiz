@@ -1,0 +1,390 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://video/vid2.webm" type="VideoStream" id=1]
+[ext_resource path="res://src/VideoPlayer.gd" type="Script" id=2]
+[ext_resource path="res://src/level/level.gd" type="Script" id=3]
+[ext_resource path="res://resource/bd/small_bd_quiz_game.tres" type="Resource" id=4]
+[ext_resource path="res://src/debug.gd" type="Script" id=5]
+[ext_resource path="res://src/scenes/errInterface/ErrorPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://font/new_dynamicfont.tres" type="DynamicFont" id=7]
+[ext_resource path="res://cosmic_shader.tres" type="Material" id=8]
+[ext_resource path="res://font/light_dynamicfont.tres" type="DynamicFont" id=9]
+[ext_resource path="res://font/OpenSans-Bold.ttf" type="DynamicFontData" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 36
+outline_size = 8
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 10 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+bd_quiz = ExtResource( 4 )
+color_right = Color( 0, 1, 0.0862745, 1 )
+color_wrong = Color( 1, 0, 0, 1 )
+
+[node name="Node" type="Node" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="Node"]
+material = ExtResource( 8 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="question_buttons" type="HBoxContainer" parent="Node"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -424.0
+margin_top = 6.0
+margin_right = 424.0
+margin_bottom = 302.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node/question_buttons"]
+margin_right = 848.0
+margin_bottom = 296.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 14
+alignment = 1
+
+[node name="Button" type="Button" parent="Node/question_buttons/VBoxContainer"]
+margin_right = 848.0
+margin_bottom = 63.0
+focus_neighbour_left = NodePath("../../../returnBack")
+focus_neighbour_top = NodePath("../Button4")
+size_flags_horizontal = 15
+size_flags_vertical = 15
+custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "test"
+flat = true
+
+[node name="Button2" type="Button" parent="Node/question_buttons/VBoxContainer"]
+margin_top = 77.0
+margin_right = 848.0
+margin_bottom = 141.0
+focus_neighbour_left = NodePath("../../../returnBack")
+size_flags_horizontal = 15
+size_flags_vertical = 15
+custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "test"
+flat = true
+
+[node name="Button3" type="Button" parent="Node/question_buttons/VBoxContainer"]
+margin_top = 155.0
+margin_right = 848.0
+margin_bottom = 218.0
+focus_neighbour_left = NodePath("../../../returnBack")
+size_flags_horizontal = 15
+size_flags_vertical = 15
+custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "test"
+flat = true
+
+[node name="Button4" type="Button" parent="Node/question_buttons/VBoxContainer"]
+margin_top = 232.0
+margin_right = 848.0
+margin_bottom = 296.0
+focus_neighbour_left = NodePath("../../../returnBack")
+focus_neighbour_bottom = NodePath("../Button")
+size_flags_horizontal = 15
+size_flags_vertical = 15
+custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "test"
+flat = true
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Node/question_buttons"]
+visible = false
+margin_left = 284.0
+margin_right = 284.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.26
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Node/question_buttons"]
+visible = false
+margin_left = 323.0
+margin_right = 643.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 14
+alignment = 1
+
+[node name="question_info" type="HBoxContainer" parent="Node"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -410.0
+margin_top = -214.0
+margin_right = 401.0
+margin_bottom = -17.0
+
+[node name="txt" type="Label" parent="Node/question_info"]
+margin_right = 811.0
+margin_bottom = 197.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_colors/font_color = Color( 1, 0.996078, 0.996078, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "test"
+align = 1
+valign = 1
+
+[node name="VideoPlayer" type="VideoPlayer" parent="Node"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -640.0
+margin_right = 640.0
+stream = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="skip" type="Button" parent="Node/VideoPlayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -237.0
+margin_top = 32.0
+margin_right = -91.0
+margin_bottom = 72.0
+custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "SKIP"
+flat = true
+
+[node name="anime_name" type="Label" parent="Node/VideoPlayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -640.0
+margin_top = 489.0
+margin_right = 640.0
+margin_bottom = -78.0
+custom_fonts/font = SubResource( 2 )
+text = "test"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node"]
+visible = false
+margin_right = 131.0
+margin_bottom = 331.0
+script = ExtResource( 5 )
+
+[node name="fps_label" type="Label" parent="Node/VBoxContainer"]
+margin_right = 131.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+
+[node name="fps_label2" type="Label" parent="Node/VBoxContainer"]
+margin_top = 18.0
+margin_right = 131.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+
+[node name="fps_label3" type="Label" parent="Node/VBoxContainer"]
+margin_top = 36.0
+margin_right = 131.0
+margin_bottom = 50.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+
+[node name="fps_label4" type="Label" parent="Node/VBoxContainer"]
+margin_top = 54.0
+margin_right = 131.0
+margin_bottom = 68.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+
+[node name="fps_label5" type="Label" parent="Node/VBoxContainer"]
+margin_top = 72.0
+margin_right = 131.0
+margin_bottom = 86.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+
+[node name="fps_label6" type="Label" parent="Node/VBoxContainer"]
+margin_top = 90.0
+margin_right = 131.0
+margin_bottom = 104.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+
+[node name="fps_label7" type="Label" parent="Node/VBoxContainer"]
+margin_top = 108.0
+margin_right = 131.0
+margin_bottom = 122.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="Node"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 7 )
+align = 1
+valign = 1
+
+[node name="game_over" type="Panel" parent="Node"]
+visible = false
+material = ExtResource( 8 )
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node/game_over"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -360.0
+margin_right = 300.0
+margin_bottom = -29.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Node/game_over/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 331.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 18
+custom_constants/margin_top = 18
+custom_constants/margin_left = 18
+custom_constants/margin_bottom = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node/game_over/VBoxContainer/MarginContainer"]
+margin_left = 18.0
+margin_top = 18.0
+margin_right = 582.0
+margin_bottom = 313.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+alignment = 1
+
+[node name="Game over" type="Label" parent="Node/game_over/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 111.0
+margin_right = 564.0
+margin_bottom = 145.0
+custom_fonts/font = ExtResource( 9 )
+text = "GAME_OVER"
+align = 1
+valign = 1
+
+[node name="Game_hints" type="Label" parent="Node/game_over/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 149.0
+margin_right = 564.0
+margin_bottom = 183.0
+custom_fonts/font = ExtResource( 9 )
+text = "GAME_HINTS"
+align = 1
+valign = 1
+
+[node name="txt_info" type="Label" parent="Node/game_over"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -269.0
+margin_top = 43.0
+margin_right = 270.0
+margin_bottom = 181.0
+rect_scale = Vector2( 0.989754, 1.14636 )
+custom_fonts/font = ExtResource( 7 )
+text = "Игра закончена.
+Правильных ответов / Всего вопросов"
+align = 1
+valign = 1
+
+[node name="txt_result" type="Label" parent="Node/game_over"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -344.0
+margin_top = -73.0
+margin_right = 344.0
+margin_bottom = 73.0
+custom_fonts/font = ExtResource( 7 )
+text = "0/0"
+align = 1
+valign = 1
+
+[node name="buttons_restart" type="Button" parent="Node/game_over"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -118.0
+margin_top = -141.0
+margin_right = 118.0
+margin_bottom = -65.0
+custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "GAME_RETURN"
+flat = true
+clip_text = true
+
+[node name="returnBack" type="Button" parent="Node"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -564.0
+margin_top = 39.0
+margin_right = -445.0
+margin_bottom = -641.0
+focus_neighbour_right = NodePath("../question_buttons/VBoxContainer/Button")
+custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+custom_fonts/font = ExtResource( 9 )
+text = "QUIT"
+flat = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ErrPanel" parent="." instance=ExtResource( 6 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[connection signal="finished" from="Node/VideoPlayer" to="Node/VideoPlayer" method="_on_VideoPlayer_finished"]
+[connection signal="pressed" from="Node/VideoPlayer/skip" to="." method="main_on_skip_pressed"]
+[connection signal="pressed" from="Node/VideoPlayer/skip" to="Node/VideoPlayer" method="_on_skip_pressed"]
+[connection signal="pressed" from="Node/game_over/buttons_restart" to="." method="_on_buttons_restart_pressed"]
+[connection signal="pressed" from="Node/returnBack" to="." method="_on_returnBack_pressed"]
+[connection signal="timeout" from="Timer" to="." method="TimerTimeout"]

@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/scenes/Options/UIOptions/UILanguageSelector.tscn" type="PackedScene" id=1]
+[ext_resource path="res://font/light_dynamicfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/scenes/lang/language.gd" type="Script" id=3]
+
+[node name="LanguageSelection" type="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -640.0
+margin_right = 640.0
+script = ExtResource( 3 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -347.5
+margin_top = -247.5
+margin_right = 347.5
+margin_bottom = 247.5
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -347.5
+margin_top = -247.5
+margin_right = 347.5
+margin_bottom = 247.5
+custom_constants/margin_right = 28
+custom_constants/margin_top = 28
+custom_constants/margin_left = 28
+custom_constants/margin_bottom = 28
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_left = 28.0
+margin_top = 28.0
+margin_right = 667.0
+margin_bottom = 467.0
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer2"]
+margin_right = 639.0
+margin_bottom = 71.0
+custom_fonts/font = ExtResource( 2 )
+text = "WELLCOME
+"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer2"]
+margin_top = 75.0
+margin_right = 639.0
+margin_bottom = 79.0
+
+[node name="UILanguageSelector" parent="Panel/MarginContainer/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 83.0
+margin_right = 639.0
+margin_bottom = 123.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+margin_top = 127.0
+margin_right = 639.0
+margin_bottom = 395.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 30
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer2"]
+margin_top = 399.0
+margin_right = 639.0
+margin_bottom = 439.0
+custom_fonts/font = ExtResource( 2 )
+text = "OPTION_DONE"
+
+[connection signal="language_changed" from="Panel/MarginContainer/VBoxContainer2/UILanguageSelector" to="." method="_on_UILanguageSelector_language_changed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_pressed"]

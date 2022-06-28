@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://font/light_dynamicfont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/scenes/Options/UIOptions/UIResolutionSelector.gd" type="Script" id=2]
+
+[node name="UIResolutionSelector" type="HBoxContainer"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -10.0
+margin_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 638.0
+margin_bottom = 40.0
+size_flags_horizontal = 11
+size_flags_vertical = 11
+custom_fonts/font = ExtResource( 1 )
+text = "Разрешение"
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="."]
+margin_left = 642.0
+margin_right = 1280.0
+margin_bottom = 40.0
+hint_tooltip = "will be soon!"
+size_flags_horizontal = 11
+size_flags_vertical = 11
+custom_fonts/font = ExtResource( 1 )
+disabled = true
+text = "1280x720"
+align = 1
+items = [ "854x480", null, false, 0, null, "1280x720", null, false, 1, null, "1920x1080", null, false, 2, null ]
+selected = 1
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://video/full/vid1.webm" type="VideoStream" id=1]
+[ext_resource path="res://src/resource/res_question.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+question_info = "second question"
+type = 0
+question_video = ExtResource( 1 )
+options = [ "ANIME_109", "ANIME_010", "ANIME_008", "ANIME_110" ]
+correct = "ANIME_109"

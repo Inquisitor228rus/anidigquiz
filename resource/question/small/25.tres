@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/resource/res_question.gd" type="Script" id=1]
+[ext_resource path="res://video/small/Nagi-AsuALullintheSea.webm" type="VideoStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+question_info = "ANIME_065"
+type = 0
+question_video = ExtResource( 2 )
+options = [ "ANIME_068", "ANIME_067", "ANIME_066", "ANIME_065" ]
+correct = "ANIME_065"

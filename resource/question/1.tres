@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://video/full/Cowboybebop.webm" type="VideoStream" id=1]
+[ext_resource path="res://src/resource/res_question.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+question_info = "first question"
+type = 0
+question_video = ExtResource( 1 )
+options = [ "ANIME_105", "ANIME_106", "ANIME_107", "ANIME_108" ]
+correct = "ANIME_108"
