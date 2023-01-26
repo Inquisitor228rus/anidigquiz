@@ -1,28 +1,14 @@
 extends VideoPlayer
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+	set_buffering_msec(1500)
+	#print(get_buffering_msec ( ))
 
 func _on_VideoPlayer_finished():
 	visible = false
-	pass # Replace with function body.
+	#get_tree().quit()
 
 
 func _on_skip_pressed():
-	#stop()
 	visible = false
-	pass

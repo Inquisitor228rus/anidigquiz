@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/resource/res_question.gd" type="Script" id=1]
+[ext_resource path="res://video/small/Ya Boy Kongming! 1.webm" type="VideoStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+question_info = "ANIME_140"
+type = 0
+question_video = ExtResource( 2 )
+options = [ "ANIME_140", "ANIME_109", "ANIME_122", "ANIME_037" ]
+correct = "ANIME_140"

@@ -14,76 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource/bd_quiz.gd"
 }, {
-"base": "Reference",
-"class": "NakamaAPI",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/api/NakamaAPI.gd"
-}, {
-"base": "Reference",
-"class": "NakamaAsyncResult",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/utils/NakamaAsyncResult.gd"
-}, {
-"base": "Reference",
-"class": "NakamaClient",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/client/NakamaClient.gd"
-}, {
-"base": "Reference",
-"class": "NakamaException",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/utils/NakamaException.gd"
-}, {
-"base": "Node",
-"class": "NakamaHTTPAdapter",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/client/NakamaHTTPAdapter.gd"
-}, {
-"base": "Reference",
-"class": "NakamaLogger",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/utils/NakamaLogger.gd"
-}, {
-"base": "NakamaAsyncResult",
-"class": "NakamaRTAPI",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/api/NakamaRTAPI.gd"
-}, {
-"base": "Reference",
-"class": "NakamaRTMessage",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/api/NakamaRTMessage.gd"
-}, {
-"base": "Reference",
-"class": "NakamaSerializer",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/utils/NakamaSerializer.gd"
-}, {
-"base": "NakamaAsyncResult",
-"class": "NakamaSession",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/api/NakamaSession.gd"
-}, {
-"base": "Reference",
-"class": "NakamaSocket",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/socket/NakamaSocket.gd"
-}, {
-"base": "Node",
-"class": "NakamaSocketAdapter",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/socket/NakamaSocketAdapter.gd"
-}, {
-"base": "Reference",
-"class": "NakamaStorageObjectId",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/api/NakamaStorageObjectId.gd"
-}, {
-"base": "Reference",
-"class": "NakamaWriteStorageObject",
-"language": "GDScript",
-"path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"
-}, {
 "base": "Resource",
 "class": "QuizQuestion",
 "language": "GDScript",
@@ -91,20 +21,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BDQuiz": "",
-"NakamaAPI": "",
-"NakamaAsyncResult": "",
-"NakamaClient": "",
-"NakamaException": "",
-"NakamaHTTPAdapter": "",
-"NakamaLogger": "",
-"NakamaRTAPI": "",
-"NakamaRTMessage": "",
-"NakamaSerializer": "",
-"NakamaSession": "",
-"NakamaSocket": "",
-"NakamaSocketAdapter": "",
-"NakamaStorageObjectId": "",
-"NakamaWriteStorageObject": "",
 "QuizQuestion": ""
 }
 
@@ -114,7 +30,8 @@ config/name="AniDigQuiz"
 run/main_scene="res://src/scenes/MainMenu/Menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Anime Digital Quiz Game"
-boot_splash/image="res://bootsplash.png"
+config/project_settings_override="user://config_test.ini"
+boot_splash/image="res://bootsplash2.png"
 config/icon="res://icon.png"
 config/macos_native_icon="res://icons/icon.icns"
 config/windows_native_icon="res://icons/icon.ico"
@@ -123,7 +40,9 @@ config/windows_native_icon="res://icons/icon.ico"
 
 Settings="*res://src/settings.gd"
 global="res://global.gd"
-Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
+MultiPreload="*res://src/multiPreload.gd"
+UiSound="*res://src/scenes/SFX/UISound.tscn"
+FpsCount="*res://src/scenes/FPSCount/FPSCount.tscn"
 
 [display]
 
@@ -132,6 +51,10 @@ window/size/height=720
 window/ios/hide_home_indicator=false
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
+
+[gdnative]
+
+singletons=[ "res://addons/videodecoder.gdnlib" ]
 
 [input]
 
@@ -144,18 +67,13 @@ debug={
 [locale]
 
 fallback="ru"
-translations=PoolStringArray( "res://translate/try3.en.translation", "res://translate/try3.es.translation", "res://translate/try3.ja.translation", "res://translate/try3.pr.translation", "res://translate/try3.ru.translation", "res://translate/try3.uk.translation" )
+translations=PoolStringArray( "res://translate/try6.en.translation", "res://translate/try6.ru.translation", "res://translate/try6.uk.translation" )
 locale_filter=[ 0, [  ] ]
-
-[physics]
-
-common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
+threads/thread_model=2
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
 vram_compression/import_pvrtc=true
 quality/shadows/filter_mode=0
 quality/reflections/texture_array_reflections=false

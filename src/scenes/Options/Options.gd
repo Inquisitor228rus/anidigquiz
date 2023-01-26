@@ -14,15 +14,20 @@ func update_settings(settings: Dictionary) -> void:
 #	)
 #	OS.set_window_size(settings.resolution)
 	OS.vsync_enabled = settings.vsync
-	get_node("/root/Settings").save_config("Settings", "Fullscreen", settings.fullscreen)
-	get_node("/root/Settings").save_config("Settings", "Vsync", settings.vsync)
+	Settings.save_config("Settings", "Fullscreen", settings.fullscreen)
+	Settings.save_config("Settings", "Vsync", settings.vsync)
 #	get_node("/root/Settings").save_config("Resolution", "Height", settings.resolution[0])
 #	get_node("/root/Settings").save_config("Resolution", "Width", settings.resolution[1])
-	get_node("/root/Settings").save_config("Game", "QuizTime", settings.QuizTime)
-	get_node("/root/Settings").save_config("Game", "Full_Opening", false)
-	get_node("/root/Settings").save_config("Engine", "MaxFPS", 0)
-	get_node("/root/Settings").save_config("Engine", "StartupVideo", false)
+	Settings.save_config("Game", "QuizTime", settings.QuizTime)
+	Settings.save_config("Game", "Full_Opening", false)
+	Settings.save_config("Engine", "MaxFPS", settings.max_fps)
+	Settings.save_config("Engine", "StartupVideo", false)
+	Settings.save_config("Engine", "MultiThread", settings.MultiThread)
 	get_node("/root/Settings").save_config("Game", "Language", settings.lang)
+	
+	Settings.save_config("Engine", "ShowFPS", settings.ShowFPS)
+	Settings.save_config("Engine", "MusicVol", settings.VolumeBG)
+	Settings.save_config("Engine", "VideoVol", settings.VolumeVideo)
 	
 	#loadSettings.SettingsSecondsOfOp = settings.SettingsSecondsOfOp
 	#print(loadSettings.SettingsSecondsOfOp)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/scenes/SFX/UISound.gd" type="Script" id=1]
+[ext_resource path="res://resource/audio/Sound/menu-selection-click.wav" type="AudioStream" id=2]
+
+[node name="SelectSFX" type="AudioStreamPlayer"]
+stream = ExtResource( 2 )
+volume_db = -22.64
+script = ExtResource( 1 )

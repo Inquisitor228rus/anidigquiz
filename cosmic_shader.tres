@@ -94,16 +94,16 @@ void fragment()
 
 [resource]
 shader = SubResource( 1 )
-shader_param/iterations = 6
+shader_param/iterations = 8
 shader_param/formuparam = 1.0
-shader_param/volsteps = 6
-shader_param/stepsize = 0.174
-shader_param/zoom = 0.445
-shader_param/tile = 0.2
-shader_param/speed = 0.101
+shader_param/volsteps = 8
+shader_param/stepsize = 0.114
+shader_param/zoom = 0.17
+shader_param/tile = 0.811
+shader_param/speed = 0.034
 shader_param/brightness = 0.002
 shader_param/darkmatter = 0.1
 shader_param/distfading = 0.65
 shader_param/saturation = 0.15
-shader_param/iResolution = Vector2( 192, 1 )
-shader_param/iMouse = Vector2( 1, 1 )
+shader_param/iResolution = Vector2( 8, 1 )
+shader_param/iMouse = Vector2( 0, 0 )

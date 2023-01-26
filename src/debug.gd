@@ -11,7 +11,7 @@ onready var fps_label7 := $fps_label7
 var safety = false
 
 
-func _process(delta):
+func _process(_delta):
 	#fps_label += "fps: " + str(Engine.get_frames_per_second())
 	fps_label.set_text("fps: " + str(Engine.get_frames_per_second()))
 	if Input.is_action_just_released("debug"):

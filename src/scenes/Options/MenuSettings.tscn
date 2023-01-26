@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/scenes/Options/UIOptions/UIResolutionSelector.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/Options/UIOptions/UISettingsCheckbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/scenes/Options/UIOptions/UINumberBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://font/light_dynamicfont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://src/scenes/Options/UIOptions/UILanguageSelector.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/scenes/Options/UIOptions/UIMultiThreadTest.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/scenes/Options/UIOptions/UISoundControl.tscn" type="PackedScene" id=7]
+[ext_resource path="res://resource/themes/FlatUI/kenneyUI.tres" type="Theme" id=8]
 
 [sub_resource type="GDScript" id=1]
 script/source = "# User interface that allows the player to select game settings.
@@ -20,7 +23,8 @@ signal apply_button_pressed(settings)
 var currentRes = OS.window_size
 var realScreen := OS.get_screen_size()
 var GameResolution
-const language_map = {0: \"en\", 1: \"ru\", 2: \"pr\", 3: \"uk\"}
+const language_map = {0: \"en\", 1: \"ru\", 2: \"uk\"}
+var MultiThread = Settings.MultiThread
 #onready var loadSettings = \"/root/Settings\"
 
 
@@ -63,8 +67,12 @@ func checkLanguage():
 func _ready():
 	$MarginContainer/VBoxContainer/UIFullScreenCheckbox/CheckBox.pressed = OS.window_fullscreen
 	$MarginContainer/VBoxContainer/UIVSyncsCheckbox2/CheckBox.pressed = OS.vsync_enabled
+	$MarginContainer/VBoxContainer/UIMultiThreadTest/CheckBox.pressed = Settings.MultiThread
 	checkLanguage()
 	checkSettings()
+	$MarginContainer/VBoxContainer/UISoundControlBGMusic/HBoxContainer/HSlider.value = Settings.volume_bg
+	$MarginContainer/VBoxContainer/UISoundControl/HBoxContainer/HSlider.value = Settings.volume_video
+	$MarginContainer/VBoxContainer/UIShowFPS/CheckBox.pressed = Settings.show_fps
 #	print(Settings.SettingsResW)
 	#loadSettings.load_settings(SettingsSecondsOfOp)
 	#screen_metrics()
@@ -77,13 +85,16 @@ func _ready():
 func _on_ApplyButton_pressed() -> void:
 	# Send the last selected settings with the signal
 	#fullscreenCheck()
+	UiSound.play()
 	emit_signal(\"apply_button_pressed\", _settings)
 	#loadSettings.save_settings()
 
 
 		
 
-onready var _settings := { fullscreen = OS.window_fullscreen, vsync = OS.vsync_enabled, QuizTime = 15, lang = TranslationServer.get_locale()}
+onready var _settings := { fullscreen = OS.window_fullscreen, vsync = OS.vsync_enabled, QuizTime = 15, 
+lang = TranslationServer.get_locale(), max_fps = Settings.MaxFPS, MultiThread = Settings.MultiThread, 
+ShowFPS = Settings.show_fps, VolumeBG = Settings.volume_bg, VolumeVideo = Settings.volume_video}
 #onready var _settings := {resolution = Vector2(1280,720), fullscreen = OS.window_fullscreen, vsync = OS.vsync_enabled}#, QuizTime = QuizTimeTemp}
 #onready var _settings := {resolution = (
 #	OS.get_locale_language()
@@ -96,12 +107,14 @@ onready var _settings := { fullscreen = OS.window_fullscreen, vsync = OS.vsync_e
 # to the `resolution_changed` signal, this will be executed any time the
 # users chooses a new resolution
 func _on_UIResolutionSelector_resolution_changed(new_resolution: Vector2) -> void:
+	UiSound.play()
 	_settings.resolution = new_resolution
 
 
 # Store the fullscreen setting. This will be called any time the users toggles
 # the UIFullScreenCheckbox
 func _on_UIFullScreenCheckbox_toggled(is_button_pressed: bool) -> void:
+	UiSound.play()
 	_settings.fullscreen = is_button_pressed
 #	if (is_button_pressed):
 #		_settings.resolution = realScreen
@@ -113,11 +126,14 @@ func _on_UIFullScreenCheckbox_toggled(is_button_pressed: bool) -> void:
 # Store the vsync seting. This will be called any time the users toggles
 # the UIVSyncCheckbox
 func _on_UIVSyncsCheckbox2_toggled(is_button_pressed: bool) -> void:
+	UiSound.play()
 	_settings.vsync = is_button_pressed
 	#loadSettings.SettingsVsync = is_button_pressed
 
 
 func _on_QuitButton_pressed():
+	UiSound.play()
+	#get_tree().current_scene.get_child(Node2D).queue_free()
 	get_tree().change_scene(\"res://src/scenes/MainMenu/Menu.tscn\") # переключение сцены сразу в главное меню. Menu.tscn
 
 
@@ -126,28 +142,61 @@ func _on_DegubSettings_toggled(is_button_pressed: bool) -> void:
 
 
 func _on_UINumberBox_changed(value_changed: int) -> void:
+	UiSound.play()
 	_settings.QuizTime = value_changed
 	#loadSettings.SettingsSecondsOfOp = value_changed
 
 func _on_OpenFolder_pressed():
+	UiSound.play()
 	OS.shell_open(ProjectSettings.globalize_path(\"user://\"))
 
 
 func _on_ResetSettings_pressed():
+	UiSound.play()
+	_settings.MultiThread = false
 	_settings.resolution = Vector2(1280,720)
 	_settings.fullscreen = false
 	_settings.vsync = true
 	_settings.QuizTime = 15
 	_settings.lang = OS.get_locale_language()
+	_settings.VolumeBG = 0
+	_settings.VolumeVideo = 0
+	_settings.ShowFPS = false
 	emit_signal(\"apply_button_pressed\", _settings)
 	$MarginContainer/VBoxContainer/UIFullScreenCheckbox/CheckBox.pressed = OS.window_fullscreen
 	$MarginContainer/VBoxContainer/UIVSyncsCheckbox2/CheckBox.pressed = OS.vsync_enabled
 
 
 func _on_UILanguageSelector_language_changed(index):
+	UiSound.play()
 	TranslationServer.set_locale(language_map[index])
 	_settings.lang = language_map[index]
 	
+
+
+func _on_UIMultiThreadTest_toggled(is_button_pressed: bool) -> void:
+	UiSound.play()
+	_settings.MultiThread = is_button_pressed
+
+
+func _on_UISoundControlBGMusic_sound_changed(value: float) -> void:
+	#set_bus_volume(1, value)
+	_settings.VolumeBG = value
+
+
+func _on_UISoundControl_sound_changed(value: float) -> void:
+	#set_bus_volume(2, value)
+	_settings.VolumeVideo = value
+
+#func set_bus_volume(bus_index: int, value: float) -> void:
+	#AudioServer.set_bus_volume_db(bus_index, linear2db(value))
+	#AudioServer.set_bus_mute(bus_index, value < -0.01)
+
+
+
+func _on_UISettingsCheckbox_toggled(is_button_pressed: bool) -> void:
+	UiSound.play()
+	_settings.ShowFPS = is_button_pressed
 "
 
 [node name="UIVideoSettings" type="Panel"]
@@ -156,24 +205,25 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -317.0
-margin_top = -288.0
+margin_top = -342.5
 margin_right = 317.0
-margin_bottom = 288.0
+margin_bottom = 342.5
+theme = ExtResource( 8 )
 script = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 28
-custom_constants/margin_top = 28
+custom_constants/margin_top = 4
 custom_constants/margin_left = 28
-custom_constants/margin_bottom = 28
+custom_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 28.0
-margin_top = 28.0
+margin_top = 4.0
 margin_right = 606.0
-margin_bottom = 548.0
+margin_bottom = 681.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -192,6 +242,26 @@ margin_top = 38.0
 margin_right = 578.0
 margin_bottom = 42.0
 
+[node name="UISoundControlBGMusic" parent="MarginContainer/VBoxContainer" instance=ExtResource( 7 )]
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 46.0
+margin_right = 578.0
+margin_bottom = 88.0
+title = "BGMusic_VOLUME"
+bus_name = "BGMusic"
+
+[node name="UISoundControl" parent="MarginContainer/VBoxContainer" instance=ExtResource( 7 )]
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 92.0
+margin_right = 578.0
+margin_bottom = 134.0
+title = "VIDEO_VOLUME"
+bus_name = "Video"
+
 [node name="UIResolutionSelector" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
 visible = false
 anchor_top = 0.0
@@ -205,9 +275,9 @@ margin_bottom = 86.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 46.0
+margin_top = 138.0
 margin_right = 578.0
-margin_bottom = 88.0
+margin_bottom = 174.0
 size_flags_horizontal = 3
 title = "OPTIONS_FS"
 
@@ -215,9 +285,9 @@ title = "OPTIONS_FS"
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 92.0
+margin_top = 178.0
 margin_right = 578.0
-margin_bottom = 134.0
+margin_bottom = 214.0
 title = "OPTIONS_VS"
 
 [node name="DegubSettings" parent="MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
@@ -225,78 +295,83 @@ visible = false
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 150.0
+margin_top = 138.0
 margin_right = 578.0
-margin_bottom = 670.0
+margin_bottom = 180.0
 
 [node name="UINumberBox" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 138.0
+margin_top = 218.0
 margin_right = 578.0
-margin_bottom = 172.0
+margin_bottom = 265.0
 title = "OPTIONS_QT"
 
 [node name="UILanguageSelector" parent="MarginContainer/VBoxContainer" instance=ExtResource( 5 )]
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 176.0
+margin_top = 269.0
 margin_right = 578.0
-margin_bottom = 216.0
+margin_bottom = 327.0
+
+[node name="UIMultiThreadTest" parent="MarginContainer/VBoxContainer" instance=ExtResource( 6 )]
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 331.0
+margin_right = 578.0
+margin_bottom = 367.0
+
+[node name="UIShowFPS" parent="MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 371.0
+margin_right = 578.0
+margin_bottom = 407.0
+title = "SHOW_FPS"
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
-margin_top = 220.0
+margin_top = 411.0
 margin_right = 578.0
-margin_bottom = 220.0
+margin_bottom = 411.0
 size_flags_horizontal = 15
 size_flags_vertical = 2
 
 [node name="OpenFolder" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 344.0
+margin_top = 429.0
 margin_right = 578.0
-margin_bottom = 384.0
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+margin_bottom = 487.251
 custom_fonts/font = ExtResource( 4 )
 text = "OPTION_FOLDER"
-flat = true
 
 [node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 388.0
+margin_top = 491.0
 margin_right = 578.0
-margin_bottom = 428.0
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+margin_bottom = 549.251
 custom_fonts/font = ExtResource( 4 )
 text = "OPTION_DONE"
-flat = true
 
 [node name="Control2" type="Control" parent="MarginContainer/VBoxContainer"]
-margin_top = 432.0
+margin_top = 553.0
 margin_right = 578.0
-margin_bottom = 432.0
+margin_bottom = 553.0
 
 [node name="ResetSettings" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 436.0
+margin_top = 557.0
 margin_right = 578.0
-margin_bottom = 476.0
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+margin_bottom = 615.251
 custom_fonts/font = ExtResource( 4 )
 text = "OPTION_RETURN"
-flat = true
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 480.0
+margin_top = 619.0
 margin_right = 578.0
-margin_bottom = 520.0
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+margin_bottom = 677.251
 custom_fonts/font = ExtResource( 4 )
 text = "QUIT"
-flat = true
 
 [node name="Label" type="Label" parent="."]
 margin_left = -180.0
@@ -305,12 +380,16 @@ margin_right = -5.0
 margin_bottom = 172.0
 autowrap = true
 
+[connection signal="sound_changed" from="MarginContainer/VBoxContainer/UISoundControlBGMusic" to="." method="_on_UISoundControlBGMusic_sound_changed"]
+[connection signal="sound_changed" from="MarginContainer/VBoxContainer/UISoundControl" to="." method="_on_UISoundControl_sound_changed"]
 [connection signal="resolution_changed" from="MarginContainer/VBoxContainer/UIResolutionSelector" to="." method="_on_UIResolutionSelector_resolution_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/UIFullScreenCheckbox" to="." method="_on_UIFullScreenCheckbox_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/UIVSyncsCheckbox2" to="." method="_on_UIVSyncsCheckbox2_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/DegubSettings" to="." method="_on_DegubSettings_toggled"]
 [connection signal="changed" from="MarginContainer/VBoxContainer/UINumberBox" to="." method="_on_UINumberBox_changed"]
 [connection signal="language_changed" from="MarginContainer/VBoxContainer/UILanguageSelector" to="." method="_on_UILanguageSelector_language_changed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/UIMultiThreadTest" to="." method="_on_UIMultiThreadTest_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/UIShowFPS" to="." method="_on_UISettingsCheckbox_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OpenFolder" to="." method="_on_OpenFolder_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ResetSettings" to="." method="_on_ResetSettings_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://video/vid2.webm" type="VideoStream" id=1]
 [ext_resource path="res://src/VideoPlayer.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://cosmic_shader.tres" type="Material" id=8]
 [ext_resource path="res://font/light_dynamicfont.tres" type="DynamicFont" id=9]
 [ext_resource path="res://font/OpenSans-Bold.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://src/scenes/FPSCount/FPSCount.tscn" type="PackedScene" id=11]
+[ext_resource path="res://resource/themes/FlatUI/kenneyUI.tres" type="Theme" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -29,6 +31,7 @@ script = ExtResource( 3 )
 bd_quiz = ExtResource( 4 )
 color_right = Color( 0, 1, 0.0862745, 1 )
 color_wrong = Color( 1, 0, 0, 1 )
+max_anime_list = 198
 
 [node name="Node" type="Node" parent="."]
 
@@ -46,6 +49,7 @@ margin_left = -424.0
 margin_top = 6.0
 margin_right = 424.0
 margin_bottom = 302.0
+theme = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Node/question_buttons"]
 margin_right = 848.0
@@ -62,11 +66,8 @@ focus_neighbour_left = NodePath("../../../returnBack")
 focus_neighbour_top = NodePath("../Button4")
 size_flags_horizontal = 15
 size_flags_vertical = 15
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "test"
-flat = true
 
 [node name="Button2" type="Button" parent="Node/question_buttons/VBoxContainer"]
 margin_top = 77.0
@@ -75,11 +76,8 @@ margin_bottom = 141.0
 focus_neighbour_left = NodePath("../../../returnBack")
 size_flags_horizontal = 15
 size_flags_vertical = 15
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "test"
-flat = true
 
 [node name="Button3" type="Button" parent="Node/question_buttons/VBoxContainer"]
 margin_top = 155.0
@@ -88,11 +86,8 @@ margin_bottom = 218.0
 focus_neighbour_left = NodePath("../../../returnBack")
 size_flags_horizontal = 15
 size_flags_vertical = 15
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "test"
-flat = true
 
 [node name="Button4" type="Button" parent="Node/question_buttons/VBoxContainer"]
 margin_top = 232.0
@@ -102,25 +97,22 @@ focus_neighbour_left = NodePath("../../../returnBack")
 focus_neighbour_bottom = NodePath("../Button")
 size_flags_horizontal = 15
 size_flags_vertical = 15
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "test"
-flat = true
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Node/question_buttons"]
 visible = false
-margin_left = 284.0
-margin_right = 284.0
+margin_left = 673.0
+margin_right = 673.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.26
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Node/question_buttons"]
 visible = false
-margin_left = 323.0
-margin_right = 643.0
-margin_bottom = 200.0
+margin_left = 426.0
+margin_right = 848.0
+margin_bottom = 296.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 14
@@ -157,20 +149,21 @@ anchor_bottom = 1.0
 margin_left = -640.0
 margin_right = 640.0
 stream = ExtResource( 1 )
+bus = "Video"
 script = ExtResource( 2 )
 
 [node name="skip" type="Button" parent="Node/VideoPlayer"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -237.0
-margin_top = 32.0
-margin_right = -91.0
-margin_bottom = 72.0
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 403.0
+margin_top = -328.0
+margin_right = 549.0
+margin_bottom = -288.0
+theme = ExtResource( 12 )
 custom_fonts/font = ExtResource( 7 )
 text = "SKIP"
-flat = true
 
 [node name="anime_name" type="Label" parent="Node/VideoPlayer"]
 anchor_left = 0.5
@@ -184,6 +177,7 @@ custom_fonts/font = SubResource( 2 )
 text = "test"
 align = 1
 valign = 1
+autowrap = true
 uppercase = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Node"]
@@ -253,6 +247,7 @@ anchor_right = 0.5
 margin_left = -20.0
 margin_right = 20.0
 margin_bottom = 14.0
+theme = ExtResource( 12 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -345,46 +340,96 @@ valign = 1
 
 [node name="buttons_restart" type="Button" parent="Node/game_over"]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 margin_left = -118.0
-margin_top = -141.0
+margin_top = 210.0
 margin_right = 118.0
-margin_bottom = -65.0
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
+margin_bottom = 286.0
+theme = ExtResource( 12 )
 custom_fonts/font = ExtResource( 7 )
 text = "GAME_RETURN"
-flat = true
-clip_text = true
 
-[node name="returnBack" type="Button" parent="Node"]
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -564.0
-margin_top = 39.0
-margin_right = -445.0
-margin_bottom = -641.0
-focus_neighbour_right = NodePath("../question_buttons/VBoxContainer/Button")
-custom_colors/font_color_hover = Color( 0.2, 1, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.717647, 1 )
-custom_fonts/font = ExtResource( 9 )
-text = "QUIT"
-flat = true
-
-[node name="Timer" type="Timer" parent="."]
-
-[node name="ErrPanel" parent="." instance=ExtResource( 6 )]
+[node name="buttons_again" type="Button" parent="Node/game_over"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = -118.0
+margin_top = 105.0
+margin_right = 118.0
+margin_bottom = 181.0
+theme = ExtResource( 12 )
+custom_fonts/font = ExtResource( 7 )
+text = "GAME_AGAIN"
+
+[node name="returnBack" type="Button" parent="Node"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -564.0
+margin_top = -321.0
+margin_right = -445.0
+margin_bottom = -281.0
+focus_neighbour_right = NodePath("../question_buttons/VBoxContainer/Button")
+theme = ExtResource( 12 )
+custom_fonts/font = ExtResource( 9 )
+text = "QUIT"
+
+[node name="CountPanel" type="HBoxContainer" parent="Node"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 386.0
+margin_top = 22.0
+margin_right = 594.0
+margin_bottom = -631.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightNowVideoCount" type="Label" parent="Node/CountPanel"]
+margin_left = 82.0
+margin_right = 102.0
+margin_bottom = 67.0
+size_flags_horizontal = 10
+size_flags_vertical = 7
+custom_fonts/font = ExtResource( 7 )
+text = "15"
+align = 1
+valign = 1
+
+[node name="AllVideosCount" type="Label" parent="Node/CountPanel"]
+margin_left = 106.0
+margin_right = 159.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 7 )
+text = " из 99"
+align = 1
+valign = 1
+
+[node name="FPS_COUNT" parent="Node" instance=ExtResource( 11 )]
+margin_right = 98.0
+margin_bottom = 50.0
+text = ""
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ErrPanel" parent="." instance=ExtResource( 6 )]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
 
 [connection signal="finished" from="Node/VideoPlayer" to="Node/VideoPlayer" method="_on_VideoPlayer_finished"]
 [connection signal="pressed" from="Node/VideoPlayer/skip" to="." method="main_on_skip_pressed"]
 [connection signal="pressed" from="Node/VideoPlayer/skip" to="Node/VideoPlayer" method="_on_skip_pressed"]
 [connection signal="pressed" from="Node/game_over/buttons_restart" to="." method="_on_buttons_restart_pressed"]
+[connection signal="pressed" from="Node/game_over/buttons_again" to="." method="_on_buttons_again_pressed"]
 [connection signal="pressed" from="Node/returnBack" to="." method="_on_returnBack_pressed"]
 [connection signal="timeout" from="Timer" to="." method="TimerTimeout"]

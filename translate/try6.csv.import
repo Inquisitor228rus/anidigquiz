@@ -1,0 +1,16 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+
+[deps]
+
+files=[ "res://translate/try6.en.translation", "res://translate/try6.ru.translation", "res://translate/try6.uk.translation", "res://translate/try6.es.translation", "res://translate/try6.ja.translation" ]
+
+source_file="res://translate/try6.csv"
+dest_files=[ "res://translate/try6.en.translation", "res://translate/try6.ru.translation", "res://translate/try6.uk.translation", "res://translate/try6.es.translation", "res://translate/try6.ja.translation" ]
+
+[params]
+
+compress=true
+delimiter=0

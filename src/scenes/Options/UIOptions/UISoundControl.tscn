@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://font/light_dynamicfont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/scenes/Options/UIOptions/UISoundControl.gd" type="Script" id=2]
+
+[node name="UISoundControl" type="HBoxContainer"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -17.0
+margin_bottom = 17.0
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 638.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Sound_control"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 642.0
+margin_right = 1280.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer"]
+margin_right = 638.0
+margin_bottom = 34.0
+size_flags_horizontal = 15
+size_flags_vertical = 3
+min_value = -24.0
+max_value = 0.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="HBoxContainer"]
+visible = false
+margin_left = 602.0
+margin_right = 638.0
+margin_bottom = 34.0
+size_flags_vertical = 1
+text = "100%"
+align = 1
+valign = 1
+
+[connection signal="value_changed" from="HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]

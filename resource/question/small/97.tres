@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/resource/res_question.gd" type="Script" id=1]
+[ext_resource path="res://video/small/Fullmetal Alchemist Brotherhood Opening 1.webm" type="VideoStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+question_info = "ANIME_022"
+type = 0
+question_video = ExtResource( 2 )
+options = [ "ANIME_022", "ANIME_151", "ANIME_002", "ANIME_156" ]
+correct = "ANIME_022"

@@ -28,7 +28,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 1 )
 text = "Russian"
-items = [ "English", null, false, 0, null, "Russian", null, false, 1, null, "Goblin", null, false, 2, null, "Ukrainian", null, false, 3, null ]
+items = [ "English", null, false, 0, null, "Russian", null, false, 1, null, "Ukrainian", null, false, 2, null ]
 selected = 1
 
 [connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]

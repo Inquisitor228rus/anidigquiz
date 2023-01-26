@@ -10,7 +10,7 @@ func _on_Button_pressed():
 	#get_tree().current_scene.remove_child()
 	#get_tree().change_scene("res://src/scenes/MainMenu/Menu.tscn")
 
-var language_map = {"ENG": "en", "RUS": "ru", "PIR": "pr", "UKR": "uk"}
+var language_map = {"ENG": "en", "RUS": "ru", "UKR": "uk"}
 
 func _on_UILanguageSelector_language_changed(index):
 	TranslationServer.set_locale(language_map[index])
