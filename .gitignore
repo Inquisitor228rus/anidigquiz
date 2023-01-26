@@ -10,6 +10,9 @@ pck/
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+# Export file
+export_presets.cfg
+
 # Local History for Visual Studio Code
 .history/
 
