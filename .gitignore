@@ -1,6 +1,7 @@
 video
 video/
 pck/
+.import/
 
 .vscode/*
 !.vscode/settings.json
