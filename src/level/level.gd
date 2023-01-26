@@ -114,7 +114,7 @@ func load_quiz() -> void:
 			#print(OS.get_name())
 			#var DebugOS = true
 			#if DebugOS:
-			if !OS.get_name() == "Windows":
+			if OS.get_name() == "Windows":
 				#print("lib launched")
 				var stream = VideoStreamGDNative.new()
 				var file = bd_quiz.bd[index].question_video.get_file()
